@@ -26,9 +26,11 @@ function updateVanaTime() {
 
   const vHour = Math.floor((vanaDate % msRealDay) / (60 * 60 * 1000));
   const vMin = Math.floor((vanaDate % (60 * 60 * 1000)) / (60 * 1000));
+  document.getElementById("vanaTime").textContent = `Time: ${String(vHour).padStart(2, '0')}:${String(vMin).padStart(2, '0')}`;
 
   // Send next notification when it's time
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+    console.log("Sending time " + vHour + ":" + vMin);
     navigator.serviceWorker.controller.postMessage({ type: 'checkTime', currentHour: vHour, currentMin: vMin });
   }
 }
